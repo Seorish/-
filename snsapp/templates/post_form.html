@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>새 글 작성</h1>
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+        <!--views.py에서 딕셔너리 형태로 날려준 정보를 {{form}} 형태로 받아오기-->
+        <!-- form을 table 형태로 받아오고 싶다면 <table></table> 안에 {{ form.as_table }}로 받아오기-->
+    </table>
+    <input type="submit" value="새 글">
+
+</form>
+
+{% endblock %}

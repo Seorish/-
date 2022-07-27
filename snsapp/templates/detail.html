@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h1>제목 : {{ post_detail.title }}</h1>
+
+<h2>작성날짜 : {{ post_detail.date }}</h2>
+
+<p>
+    {{ post_detail.body }}
+</p>
+
+<!-- 댓글 목록 공간 -->
+{% for comment in post_detil.comment_set.all %}
+<!-- 이 게시물을 참조하고 있는 comment라고 하는 객체의 집합들의 전체를 순회 -->
+    <p>{{ comment }}</p>
+    <p>{{ comment.date }}</p>
+    <hr>
+{% endfor %}
+
+<!-- 댓글 입력 공간 -->
+<form method="POST" action="{% url 'new_comment' post_detail.id %}">
+    <!-- form 의 acton 은 이걸 눌렀을 때 어떤 url에서 처리하게 해줌-->
+    <!-- 댓글 제출 하면 new_comment url로 가길 원해! -->
+    <!-- 어떤 게시물의 댓글인지 정보 작성해야함 post_detail.id -->
+    <!-- 정보 보낼 때 csrf_token 필수 -->
+    {{ csrf_token }}
+    {{ comment_form }}
+    <input type="submit" value="댓글입력">
+</form>
+
+
+{% endblock %}
